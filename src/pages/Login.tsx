@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Lock, User, ChevronRight, Sparkles, Zap, Mail, AlertCircle, Globe, Gamepad2, CheckSquare, Square, KeyRound, RefreshCw } from 'lucide-react';
+import { Shield, Lock, User, ChevronRight, Sparkles, Zap, Mail, AlertCircle, Globe, Gamepad2, CheckSquare, Square, KeyRound } from 'lucide-react';
 import { BackgroundBeamsWithCollision } from '../components/ui/BackgroundBeamsWithCollision';
 import { cn } from '../lib/utils';
 
@@ -10,19 +10,19 @@ type AuthMode = 'LOGIN' | 'SIGN_UP' | 'FORGOT_PASSWORD';
 export default function Login() {
   const [mode, setMode] = useState<AuthMode>('SIGN_UP');
   const [forgotStep, setForgotStep] = useState(1);
-  
+
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [otpCode, setOtpCode] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  
+
   const [favoriteGame, setFavoriteGame] = useState('');
   const [region, setRegion] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
-  
+
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
@@ -105,7 +105,7 @@ export default function Login() {
     }
 
     setIsAuthenticating(true);
-    
+
     setTimeout(() => {
       if (mode === 'SIGN_UP') {
         localStorage.setItem('pgx_registered', 'true');
@@ -128,7 +128,7 @@ export default function Login() {
           >
             <div className="relative p-1 bg-gradient-to-b from-white/10 to-transparent rounded-[2.5rem] overflow-hidden">
               <div className="relative bg-neutral-950/80 backdrop-blur-3xl rounded-[2.4rem] p-8 md:p-12 border border-white/5">
-                
+
                 {/* Header */}
                 <div className="text-center mb-8">
                   <div className="inline-flex items-center justify-center size-16 bg-neon-cyan/10 rounded-2xl mb-6 border border-neon-cyan/20">
@@ -160,8 +160,8 @@ export default function Login() {
                       }}
                       className={cn(
                         "flex-1 py-3 text-[10px] uppercase tracking-[0.3em] font-black rounded-lg transition-all",
-                        mode === 'SIGN_UP' 
-                          ? "bg-white/10 text-white shadow-[0_0_15px_rgba(0,242,255,0.2)] border border-white/10" 
+                        mode === 'SIGN_UP'
+                          ? "bg-white/10 text-white shadow-[0_0_15px_rgba(0,242,255,0.2)] border border-white/10"
                           : "text-neutral-500 hover:text-white hover:bg-white/5"
                       )}
                     >
@@ -176,8 +176,8 @@ export default function Login() {
                       }}
                       className={cn(
                         "flex-1 py-3 text-[10px] uppercase tracking-[0.3em] font-black rounded-lg transition-all",
-                        mode === 'LOGIN' 
-                          ? "bg-white/10 text-white shadow-[0_0_15px_rgba(0,242,255,0.2)] border border-white/10" 
+                        mode === 'LOGIN'
+                          ? "bg-white/10 text-white shadow-[0_0_15px_rgba(0,242,255,0.2)] border border-white/10"
                           : "text-neutral-500 hover:text-white hover:bg-white/5"
                       )}
                     >
@@ -303,8 +303,8 @@ export default function Login() {
                           <div className="flex justify-between items-center ml-2">
                             <label className="text-[10px] uppercase tracking-[0.4em] font-black text-neutral-600">Password</label>
                             {mode === 'LOGIN' && (
-                              <button 
-                                type="button" 
+                              <button
+                                type="button"
                                 onClick={() => {
                                   setMode('FORGOT_PASSWORD');
                                   setError(null);
@@ -442,7 +442,7 @@ export default function Login() {
                 </form>
 
                 <div className="mt-12 text-center">
-                  <button 
+                  <button
                     onClick={() => {
                       if (mode === 'FORGOT_PASSWORD') {
                         setMode('LOGIN');
