@@ -1,0 +1,172 @@
+@ProGamerX — Full Tech Stack (Antigravity Edition)
+Engineered for zero lag, buttery UX, and bulletproof scalability
+
+🧠 Stack Philosophy
+Every technology below was chosen against three non-negotiable rules:
+
+Speed first — Nothing ships if it makes the site slower
+Minimal bloat — No library that can be replaced by 10 lines of code
+Scale-ready from day one — No painful rewrites when users 10x
+
+
+🎨 Frontend
+Core Framework — React 18 + Vite
+
+Why React 18? Concurrent rendering means the UI never blocks — animations stay smooth even while AI responses are streaming in
+Why Vite over CRA/Webpack? Vite's dev server starts in under 300ms and produces smaller, faster production bundles via native ES modules
+React Server Components for game pages = HTML delivered pre-rendered, zero JS bundle cost for static content
+
+Styling — Tailwind CSS v4 + CSS Variables
+
+Utility-first = no unused CSS in production (PurgeCSS built-in)
+CSS variables for your neon gaming theme (swap dark/light in one line)
+No runtime CSS-in-JS overhead — styles are resolved at build time
+
+Animation — Framer Motion + CSS Animations
+
+Framer Motion for complex orchestrated sequences (page transitions, card reveals, chat message enters)
+Pure CSS for micro-interactions (hover glows, button pulses) — zero JS overhead
+will-change: transform on animated elements to force GPU compositing → butter smooth 60fps
+
+State Management — Zustand
+
+Lighter than Redux (1KB vs 40KB), simpler than Context hell
+Handles AI chat history, user preferences, settings generator state
+Persists to localStorage for returning users with zero config
+
+Routing — React Router v6
+
+Code-splitting per route — game pages, chat, planner each load independently
+Lazy loading with React.lazy() = Home page loads with zero cost from other pages
+
+
+⚙️ Backend
+Runtime — Node.js 20 LTS + Fastify
+
+Fastify over Express — 2–3x faster request handling, schema-based validation built-in, lower memory footprint
+Handles: AI proxy requests, settings generator logic, rank planner calculations, rate limiting
+
+API Design — REST + Server-Sent Events (SSE)
+
+REST for standard CRUD (game guides, user prefs, recommendations)
+SSE (not WebSockets) for AI streaming — SSE is lighter, HTTP-native, and perfect for one-directional AI response streaming. No WebSocket handshake overhead.
+
+AI Integration — Claude API (claude-sonnet-4-20250514)
+
+Streamed responses via SSE for real-time chat feel
+System prompt engineered per game context (Valorant vs CS2 vs PUBG = different personas)
+Response caching for common queries (saves API cost + improves speed)
+
+Rate Limiting — Upstash Redis
+
+Serverless Redis = no always-on server cost
+Rate limits AI queries per IP/session (30/hour anonymous, higher for accounts)
+Also used for response caching (TTL-based)
+
+
+🗄️ Database
+Primary DB — Supabase (PostgreSQL)
+
+Hosted Postgres with a generous free tier
+Row-level security for user data
+Real-time subscriptions (used for trending tips live updates in Phase 3)
+Built-in auth — covers login, sessions, OAuth (Google/Discord gaming accounts)
+
+Why not Firebase/MongoDB?
+
+Firebase Firestore gets expensive fast at scale and has unpredictable query costs
+MongoDB is great but adds operational overhead; Supabase gives you SQL power with zero DevOps
+
+Caching Layer — Upstash Redis
+
+Cache: AI responses for repeated questions (TTL: 1 hour)
+Cache: Game guide pages (TTL: 24 hours)
+Cache: Trending tips feed (TTL: 15 minutes)
+Result: 80%+ of requests never hit the database
+
+
+🚀 Hosting & Infrastructure
+Frontend Hosting — Vercel
+
+Deploys React/Vite builds globally on 100+ edge nodes
+Automatic preview deployments per PR
+Built-in image optimization (next/image equivalent)
+Edge Middleware for A/B testing and geo-based routing
+
+Backend Hosting — Railway
+
+Deploys Node.js/Fastify with zero config
+Auto-scaling, environment variable management, Postgres add-on available
+Cheaper than AWS for early-stage, easier than Render for production
+
+CDN — Cloudflare (Free Tier)
+
+Sits in front of everything — caches static assets globally
+DDoS protection out of the box
+Cloudflare Workers for edge-side logic (bot detection, rate limiting before it hits your server)
+
+
+🖼️ Media & Assets
+Images — Cloudinary
+
+Auto-format (WebP/AVIF delivery) based on browser support
+Responsive image resizing via URL params (no manual resizing)
+Lazy loading built into their SDK
+
+Icons — Lucide React (lightweight, tree-shakeable)
+Fonts — Self-hosted via Fontsource
+
+Zero Google Fonts DNS lookups = faster load
+Only load weights/subsets actually used
+Preloaded in <head> with rel="preload"
+
+
+📊 Observability & Analytics
+ToolPurposeVercel AnalyticsCore Web Vitals, page performance, real user metricsPostHogEvent tracking (AI queries, tool completions, feature usage) — open source, self-hostableSentryError tracking + performance monitoring on frontend and backendUpstash Redis MetricsCache hit rate monitoring
+
+🔒 Security
+LayerSolutionAuthSupabase Auth (JWT-based, refresh tokens)API ProtectionCloudflare WAF + rate limitingInput SanitizationZod schema validation on all API inputsAI Prompt InjectionServer-side prompt wrapping (user input never touches system prompt directly)CORSStrict origin whitelist on FastifySecretsEnvironment variables via Railway + Vercel (never in code)
+
+🧪 Dev Tooling
+ToolPurposeTypeScriptType safety across frontend + backend — catches bugs before runtimeESLint + PrettierCode consistency, auto-formattingVitestFast unit testing (Vite-native, no Jest config overhead)PlaywrightEnd-to-end testing for critical flows (AI chat, settings generator)Husky + lint-stagedPre-commit hooks — broken code never enters the repo
+
+📦 Complete Stack Summary
+ProGamerX Stack
+│
+├── Frontend
+│   ├── React 18 + Vite
+│   ├── Tailwind CSS v4
+│   ├── Framer Motion
+│   ├── Zustand (state)
+│   └── React Router v6
+│
+├── Backend
+│   ├── Node.js 20 + Fastify
+│   ├── Claude API (AI chat, SSE streaming)
+│   └── Zod (validation)
+│
+├── Database & Cache
+│   ├── Supabase (PostgreSQL + Auth)
+│   └── Upstash Redis (cache + rate limiting)
+│
+├── Infrastructure
+│   ├── Vercel (frontend hosting)
+│   ├── Railway (backend hosting)
+│   └── Cloudflare (CDN + WAF)
+│
+├── Media
+│   ├── Cloudinary (images)
+│   └── Fontsource (self-hosted fonts)
+│
+└── Observability
+    ├── Vercel Analytics
+    ├── PostHog
+    └── Sentry
+
+⚡ Performance Targets This Stack Achieves
+MetricTargetHowFirst Contentful Paint< 1.0sVercel edge + Vite bundle splittingTime to Interactive< 2.0sCode splitting, lazy routes, no blocking JSAI First Token< 1.5sSSE streaming, Claude API, Redis cache hitLighthouse Score90+Self-hosted fonts, image optimization, minimal JSSmooth Animations60fpsGPU-composited transforms, Framer Motion, no layout thrashCache Hit Rate> 75%Redis TTL strategy for AI + content responses
+
+🗓️ Stack Rollout by Phase
+Phase 1 (MVP): React + Vite + Tailwind → Vercel. Static content. No backend yet.
+Phase 2: Add Fastify backend on Railway + Supabase + Claude API for AI chat + Upstash Redis for caching.
+Phase 3: Add Cloudflare WAF, PostHog analytics, Playwright E2E tests, fine-tuned AI model.

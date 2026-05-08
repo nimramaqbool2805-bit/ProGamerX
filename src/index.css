@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #05050A;
+  --color-foreground: #FFFFFF;
+  
+  --color-neon-cyan: #00F2FF;
+  --color-neon-violet: #B026FF;
+  --color-neon-green: #39FF14;
+  --color-neon-pink: #FF00E5;
+  
+  --font-rajdhani: "Rajdhani", sans-serif;
+  --font-dm-sans: "DM Sans", sans-serif;
+  --font-bebas-neue: "Bebas Neue", cursive;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse-slow 4s ease-in-out infinite;
+  --animate-gradient: gradient 15s ease infinite;
+
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 30s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@layer base {
+  :root {
+    --background: 240 10% 2%;
+    --foreground: 0 0% 98%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-dm-sans);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-rajdhani);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+
+.glass-cyan {
+  background: rgba(0, 242, 255, 0.02);
+  border: 1px solid rgba(0, 242, 255, 0.1);
+}
+
+/* Mesh Gradients */
+.mesh-gradient {
+  background: radial-gradient(at 0% 0%, hsla(183, 100%, 50%, 0.1) 0, transparent 50%),
+              radial-gradient(at 50% 0%, hsla(282, 100%, 57%, 0.1) 0, transparent 50%),
+              radial-gradient(at 100% 0%, hsla(111, 100%, 54%, 0.1) 0, transparent 50%);
+}
+
+/* Text Effects */
+.text-outline {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  color: transparent;
+}
+
+.glow-cyan {
+  text-shadow: 0 0 10px rgba(0, 242, 255, 0.5), 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #05050A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--color-neon-cyan), var(--color-neon-violet));
+  border-radius: 3px;
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
